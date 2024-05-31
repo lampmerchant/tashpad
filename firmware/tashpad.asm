@@ -211,7 +211,7 @@ Init
 	movlw	B'01111000'
 	movwf	OSCCON
 
-	banksel	IOCAN		;ADB and PS/2 clock set IOCAF on negative edge
+	banksel	IOCAN		;ADB sets IOCAF on negative edge
 	movlw	(1 << ADB_PIN)
 	movwf	IOCAN
 
@@ -691,9 +691,9 @@ AdbFsaIdle
 
 AdbFsaCmdBit
 	btfsc	AP_DTMR,7	;If either the down time or the up time is over
-	retlw	AdbFsaIdle	; 127 (508 us, ridiculous), throw up our hands
+	retlw	low AdbFsaIdle	; 127 (508 us, ridiculous), throw up our hands
 	btfsc	TMR0,7		; and wait for an attention pulse
-	retlw	AdbFsaIdle	; "
+	retlw	low AdbFsaIdle	; "
 	movf	TMR0,W		;Sum the value of Timer0 (the up time) with the
 	addwf	AP_DTMR,W	; down time, then divide by two to get the mid-
 	lsrf	WREG,W		; point; subtract the up time so carry contains
@@ -737,6 +737,7 @@ AdbFsaTlt
 	bcf	AP_FLAG,AP_RISE	;No longer need to catch rising edges
 	movlw	-65		;Shorten the timeout period to 260 us, which is
 	movwf	TMR0		; slightly longer than Tlt is expected to be
+	bsf	INTCON,TMR0IE	;Timer interrupts whether we transmit or not
 	btfss	AP_FLAG,AP_TXI	;If the user doesn't wish to transmit, just
 	retlw	low AdbFsaTltEnd; wait for data to start
 	movf	TMR1H,W		;Get a pseudorandom between 0 and 15, adjust it
@@ -746,8 +747,7 @@ AdbFsaTlt
 	movwf	TMR0		; 240us to wait before transmitting
 	movlw	B'11000000'	;Set the shift register so it outputs a 1 start
 	movwf	AP_SR		; bit and then loads data from the buffer
-	bsf	INTCON,TMR0IE	;Set timer to interrupt and bring us to the
-	retlw	low AdbFsaTxBitD; transmission start state
+	retlw	low AdbFsaTxBitD;Bring us to the transmission start state
 
 AdbFsaTxBitD
 	btfsc	BSR,0		;If we're here because of a timer interrupt,
@@ -804,8 +804,12 @@ AFTxBU0	movf	AP_SR,W		;If the down phase let the shift register stay
 	retlw	low AdbFsaTxBitD;Timer will take us to the down phase again
 
 AdbFsaTltEnd
+	btfsc	BSR,0		;If we're here because of a timer interrupt, the
+	bra	AFTltE0		; transmission never started, so skip ahead
 	clrf	TMR0		;This state is the end of Tlt and the start of
 	retlw	low AdbFsaRxStrt; host or other device transmitting data
+AFTltE0	bsf	AP_FLAG,AP_DONE	;Set the done flag because the data payload is
+	retlw	low AdbFsaIdle	; effectively done and return to idle
 
 AdbFsaRxStrt
 	movlw	0x01		;Start bit should be 1, but who cares, just set
@@ -822,11 +826,11 @@ AdbFsaRxBitD
 
 AdbFsaRxBitU
 	btfss	BSR,0		;If we got here because of a timer overflow, the
-	bra	AFRxBD0		; data payload must be done, so disable catching
+	bra	AFRxBU0		; data payload must be done, so disable catching
 	bcf	AP_FLAG,AP_RISE	; rising edges, set the done flag, and return to
 	bsf	AP_FLAG,AP_DONE	; idle
 	retlw	low AdbFsaIdle	; "
-AFRxBD0	movlw	31		;Compensate for us setting Timer0 to time out
+AFRxBU0	movlw	31		;Compensate for us setting Timer0 to time out
 	addwf	TMR0,F		; early
 	btfsc	AP_DTMR,7	;If the down time is over 127 (508 us,
 	bcf	AP_FLAG,AP_RISE	; ridiculous), throw up our hands and wait for
