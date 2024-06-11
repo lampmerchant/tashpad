@@ -23,7 +23,7 @@ Here is the BOM for the main board. Part number are what was tested on prototype
 | R1                    | 330Ω       | 1        | standard 0.25W carbon film resistor    | TRU TC-CFR0W4J0331     |
 | R5                    | 10kΩ       | 1        | standard 0.25W carbon film resistor    | TRU TC-CFR0W4J0103     |
 | SW1                   | SPST       | 1        | right angle SPST switch                | TE 118250277           |
-| U1                    | PIC        | 1        | 8-bit Microcontrollers DIP PIC12F1840  | MC PIC12F1840-I/P      |
+| U1                    | PIC        | 1        | 8-bit Microcontrollers DIP PIC12F1501  | MC PIC12F1501-I/P      |
 | Case                  | ABS        | 1        | Instrument Case, ABS 2.6x2.6"          | HM 1593K(TBU\|GY\|BK)  |
 
 Optional
