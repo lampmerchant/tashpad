@@ -6,7 +6,7 @@ An adapter to make a Super Famicom/NES controller appear to an ADB Macintosh as 
 
 The firmware translates the buttons by position, not by color.  The Select and Start buttons emulate the toggle switch on the Gravis GamePad, with Select moving it toward the directional pad and Start moving it toward the buttons.  The SFC controller's L and R buttons duplicate the functionality of the Y and X buttons, respectively.
 
-The ADB protocol used by the Gravis Mac GamePad is documented [here](https://github.com/lampmerchant/tashnotes/blob/main/macintosh/adb/keyboard/gravis_mac_gamepad.md).  The protocol used by the SFC controller is documented [here](https://gamesx.com/controldata/snesdat.htm).
+The ADB protocol used by the Gravis Mac GamePad is documented [here](https://github.com/lampmerchant/tashnotes/blob/main/macintosh/adb/protocols/gravis_mac_gamepad.md).  The protocol used by the SFC controller is documented [here](https://gamesx.com/controldata/snesdat.htm).
 
 ### Building Firmware
 
