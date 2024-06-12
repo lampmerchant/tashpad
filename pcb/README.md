@@ -1,13 +1,13 @@
 # TashPad
 
-This is a single two layers PCB design, using all through hole components (with the exeption of the SD connector). It's designed this way to be period correct and easy to build for people who don't like soldering SMT components
+This is a simple PCB design, using all through hole components (with the exeption of the SD connector). It's designed this way to be period correct and easy to build for people who don't like soldering SMT components. Most of the components are only there for RF and short protection (inspired from both old Macs and the SNES itself)
 
 This folder contains the source KiKad files for the main board. Please check the Panels subfolder for the FR-4 front and back plates.
 
 ![PCB](Images/1024.jpeg)
 
 ## BOM
-### BOM (main board)
+### Mandatory
 Here is the BOM for the main board. Part number are what was tested on prototypes board but you may find alternatives easily, especially resistors and sockets
 
 | Reference(s)          | Value      | Quantity | Notes                                  | Part number            |
@@ -25,8 +25,9 @@ Here is the BOM for the main board. Part number are what was tested on prototype
 | SW1                   | SPST       | 1        | right angle SPST switch                | TE 118250277           |
 | U1                    | PIC        | 1        | 8-bit Microcontrollers DIP PIC12F1501  | MC PIC12F1501-I/P      |
 | Case                  | ABS        | 1        | Instrument Case, ABS 2.6x2.6"          | HM 1593K(TBU\|GY\|BK)  |
+| PCB Screws            | #4         | 4        | Phillips Pan Head screws #4 x 1/4"     | 1593ATS50 (x50 !)      |
 
-Optional
+### Optional
 
 | Reference(s)          | Value      | Quantity | Notes                                  | Part number            |
 |-----------------------|------------|----------|----------------------------------------|------------------------|
@@ -34,9 +35,9 @@ Optional
 | R1                    | 2.2kΩ      | 1        | standard 0.25W carbon film resistor    | TRU CFR0W4J0222        |
 | D1                    | Blue       | 1        | High efficiency 4000-8000mcd 5mm LED   | Kingbright WP7113VRCBC |
 
-Note: the common choke is recommended but pricey (about $5). You can always bridge the pads as show on the PCB.
+:information_source: The common choke is recommended but pricey (about $5). When building without one, you need to bridge the pads as shown on the PCB
 
-R1 + D1 combo replaces the 300Ω + 20mA LED combo by an high efficiency LED which will be run at 1mA. This put less load on the ADB bus and the recommended choice
+R1 + D1 combo replaces the 300Ω + 20mA LED combo by an high efficiency LED which will be run with only 1mA. This put less load on the ADB bus and is the recommended choice
 
 Using sockets is also recommended because it will allow you to reclaim the microcontroler if your board is broken. This will also allow you to upgrade the firmware if a future firmware is released.
 
@@ -54,4 +55,4 @@ On JLCPCB, select "Specify a location" to the option "Remove Order Number" for a
 ## Building
 Building is straightworfard. It's recommended to start with small components first (diodes, then resistor, LED), then other components, and connectors last.
 
-Please note thay you need to solder the SNES connector with the front panel in position at the same time! Otherwise you will not be able to mount the front panel
+:warning: Please note thay you need to solder the SNES connector with the front panel in position at the same time! Otherwise you will not be able to mount the front panel
