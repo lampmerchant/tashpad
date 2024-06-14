@@ -22,17 +22,17 @@ Here is the BOM for the main board. Part number are what was tested on prototype
 | R2, R3, R4            | 100Ω       | 3        | standard 0.25W carbon film resistor    | TRU TC-CFR0W4J0101     |
 | R1                    | 330Ω       | 1        | standard 0.25W carbon film resistor    | TRU TC-CFR0W4J0331     |
 | R5                    | 10kΩ       | 1        | standard 0.25W carbon film resistor    | TRU TC-CFR0W4J0103     |
-| SW1                   | SPST       | 1        | right angle SPST switch                | TE 118250277           |
+| SW1                   | SPST       | 1        | right angle SPST switch                | TE FSMRA4JH04          |
 | U1                    | PIC        | 1        | 8-bit Microcontrollers DIP PIC12F1501  | MC PIC12F1501-I/P      |
 | Case                  | ABS        | 1        | Instrument Case, ABS 2.6x2.6"          | HM 1593K(TBU\|GY\|BK)  |
-| PCB Screws            | #4         | 4        | Phillips Pan Head screws #4 x 1/4"     | 1593ATS50 (x50 !)      |
+| PCB Screws            | #4         | 4        | Phillips Pan Head screws #4 x 1/4"     | SERPAC 6004            |
 
 ### Optional
 
 | Reference(s)          | Value      | Quantity | Notes                                  | Part number            |
 |-----------------------|------------|----------|----------------------------------------|------------------------|
 | RF1                   | 1:1:1:1    | 1        | common mode chokes / filters           | HALO LD11-0246FLF      |
-| R1                    | 2.2kΩ      | 1        | standard 0.25W carbon film resistor    | TRU CFR0W4J0222        |
+| R1                    | 2.4kΩ      | 1        | standard 0.25W carbon film resistor    | TRU CFR0W4J0222        |
 | D1                    | Blue       | 1        | High efficiency 4000-8000mcd 5mm LED   | Kingbright WP7113VRCBC |
 
 :information_source: The common choke is recommended but pricey (about $5). When building without one, you need to bridge the pads as shown on the PCB
@@ -40,6 +40,10 @@ Here is the BOM for the main board. Part number are what was tested on prototype
 R1 + D1 combo replaces the 300Ω + 20mA LED combo by an high efficiency LED which will be run with only 1mA. This put less load on the ADB bus and is the recommended choice
 
 Using sockets is also recommended because it will allow you to reclaim the microcontroler if your board is broken. This will also allow you to upgrade the firmware if a future firmware is released.
+
+### BOM (external links)
+Here is a complete mouser link (except the SNES connector).
+- https://www.mouser.fr/ProjectManager/ProjectDetail.aspx?AccessID=4cef79201d
 
 ## PCBs
 the PCBs are simple 2 layers boards. The gerbers are avaible in the release section.
